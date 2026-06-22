@@ -83,7 +83,7 @@ class RiskMath:
 # ==========================================
 st.set_page_config(page_title=" Kalshi Dual Margin Engine", layout="wide")
 st.title("Dual Margin Engine for Perps & Predictions")
-st.markdown("Margin Efficiency for coorelated bets using BTC Perps and Predictions")
+st.markdown("Margin Efficiency for Coorelated BTC Perps and Predictions.")
 
 # sidebar
 st.sidebar.header("Market Parameters (BTC)")
@@ -100,7 +100,7 @@ total_perp_size = perp_cost * perp_leverage
 st.sidebar.caption(f"**Total Size ({perp_leverage}x):** ${total_perp_size:,.2f}")
 
 st.sidebar.markdown("---")
-st.sidebar.header("BTC Predictions")
+st.sidebar.header("Bitcoin price at the end of 2026")
 bracket = st.sidebar.selectbox("Select Price Bracket", [
     "< $49,999.99",
     "$50,000 to $54,999.99",
@@ -195,14 +195,14 @@ st.markdown("---")
 
 fig = go.Figure(data=[
     go.Bar(
-        name='Legacy Isolated Margin', 
+        name='Isolated Margin', 
         x=['Required Collateral'], 
         y=[isolated], 
         marker_color='#3f3f46',
         hovertemplate='$%{y:,.2f}<extra></extra>' # Forces clean dollar formatting
     ),
     go.Bar(
-        name='Optimized Unified Margin', 
+        name='Unified Margin', 
         x=['Required Collateral'], 
         y=[unified], 
         marker_color='#10b981' if is_offsetting else '#ef4444',
