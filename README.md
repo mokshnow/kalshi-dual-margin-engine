@@ -9,9 +9,14 @@ Kalshi Dual Margin Engine calculates margin requirements for perpetuals hedged w
 
 Here is the how the engine works:
 
--> You choose the BTC spot price, implied volatility, short/long the BTC perp, the total cost for the perp, the leverage for the perp, the     outcome for the prediction, yes/no for the prediction, and total shares of the prediction. 
+  -> You choose the BTC spot price, IV, short/long the BTC perp, the total cost for the perp, the leverage for the perp, the outcome for the              prediction, yes/no for the prediction, and total shares of the prediction. 
+  
+  -> The outcome you choose for the prediction will have a large impact on this engine. The 'Bitcoin price at the end of 2026' prediction is              essentially a cash-or-nothing option, so we can use the Black-Scholes formula for c/n option to calculate the theoritical price of this              outcome. The outcomes on this particular market are ranges (BTC between X and Y), so a bull call spread. To calculate the price of this              outcome, we do price of X - price of Y.
+  
+  -> The most important part of this engine is determining the coorelation between the perp and the prediction. We start off by generating 90             days worth of synthetic log returns for BTC with 3% volatility. The, we use the user's spot price and work backwards to map the price from the       synthetic returns. Using the 90-day synthetic price history, we calculate the theortical price of the event contract on each previous day. We        use the returns (not price) to determine the coorelation between the perp and prediction.
+  
+  -> After calculating the coorelation, it calculates delta and gamma for the prediction. YES for predictions is positive delta and NO is negative        delta. Then, we calculate the exposure for our prediction, and the exposure of the perp. If they are opposite, then we have an off-setting           position (hedge).
 
--> The outcome you choose for the prediction will have a large impact on this engine. The 'Bitcoin price at the end of 2026' prediction is     essentially a cash-or-nothing option, so we can use the Black-Scholes formula for c/n option to calculate the theoritical price of this     outcome. The outcomes on this particular market are ranges (BTC between X and Y), so a bull call spread. To calculate the price of this     outcome, we do price of X - price of Y.
+-> Using the exposure of the perp and prediction, it calculates the VaR for both. 99% CI, and 5% haircut for perp and 12% haircut for the prediction.
 
--> After selecting all the criterias, the engine will calculate the coorelation (rho) between the perp and prediction.
-
+-> After the VaR calculation, we calculate our unified margin requirement for the perp and prediction. Predictions have extreme tail-risk as the        probability of market approaches 0 or 1. This causes the delta of the prediction to be extremely volatile. To account for this, the engine           calculates a gamma surcharge which increases the margin requirement when the spot price is near the edges of the outcome. The margin requirement     is calculated using the Gaussian-Copula, because Copula models joint-tail dependency and can easily recognize when two positions are hedges.
