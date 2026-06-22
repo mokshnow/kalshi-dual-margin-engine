@@ -20,3 +20,5 @@ Here is the how the engine works:
 -> Using the exposure of the perp and prediction, it calculates the VaR for both. 99% CI, and 5% haircut for perp and 12% haircut for the prediction.
 
 -> After the VaR calculation, we calculate our unified margin requirement for the perp and prediction. Predictions have extreme tail-risk as the        probability of market approaches 0 or 1. This causes the delta of the prediction to be extremely volatile. To account for this, the engine           calculates a gamma surcharge which increases the margin requirement when the spot price is near the edges of the outcome. The margin requirement     is calculated using the Gaussian-Copula, because Copula models joint-tail dependency and can easily recognize when two positions are hedges.
+
+-> Finally to calculate our optimized margin requirement: isolated margin (don't consider coorelation) - unified margin (consider coorelation).
