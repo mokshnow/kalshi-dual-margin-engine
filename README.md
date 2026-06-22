@@ -11,7 +11,7 @@ Here is the how the engine works:
 
 -> You choose the BTC spot price, implied volatility, short/long the BTC perp, the total cost for the perp, the leverage for the perp, the     outcome for the prediction, yes/no for the prediction, and total shares of the prediction. 
 
--> The outcome you chose for the prediction will have a large impact on this engine. The 'Bitcoin price at the end of 2026' prediction is   essentially a cash-or-nothing option, so we can use the Black-Scholes formula to calculate the theoritical price of this outcome. The outcomes on this particular market are ranges (BTC between X and Y), so each value is used to calculate the price, and the greater price of the two is kept. 
+-> The outcome you choose for the prediction will have a large impact on this engine. The 'Bitcoin price at the end of 2026' prediction is     essentially a cash-or-nothing option, so we can use the Black-Scholes formula for c/n option to calculate the theoritical price of this     outcome. The outcomes on this particular market are ranges (BTC between X and Y), so a bull call spread. To calculate the price of this     outcome, we do price of X - price of Y.
 
--> Then, the greeks for this outcome are calculated using the cash-or-nothing option formula.
+-> After selecting all the criterias, the engine will calculate the coorelation (rho) between the perp and prediction.
 
