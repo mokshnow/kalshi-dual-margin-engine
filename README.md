@@ -6,7 +6,7 @@ This transfer got me wondering why my predictions and perpetuals where seperated
 
 To test it out, I made this dashboard: https://kalshi-dual-margin-engine.streamlit.app/
 
-Kalshi Dual Margin Engine calculates margin requirements for perpetuals hedged with predictions or vice versa. If bets are uncoorelated, it calculates how much margin can be unlocked for the user. The dashboard is using BTC Perp and 'Bitcoin price at the end of 2026' as the prediction.
+Kalshi Dual Margin Engine calculates margin requirements for perpetuals hedged with predictions or vice versa. If bets are inversely coorelated, it calculates how much margin can be unlocked for the user. The dashboard is using BTC Perp and 'Bitcoin price at the end of 2026' as the prediction.
 
 Here is the how the engine works:
 
