@@ -1,5 +1,4 @@
-# kalshi-dual-margin-engine
-Margin Efficiency Engine for Uncorrelated Hedges with Perps and Predictions
+## Margin Efficiency Engine for Uncorrelated Hedges with Perps and Predictions
 
 Last week, I bought my first perpetuals futures contract on Kalshi (Long $HYPE). During the process, I didn't have enough cash, so I needed to transfer money from my bank account. However, I accidently sent it to my Predictions portfolio instead of my Perpetuals portfolio, so I had to transfer the cash from my Predictions to Perpetuals portfolio. Then, I was able to purchase $HYPE perpetuals. 
 
