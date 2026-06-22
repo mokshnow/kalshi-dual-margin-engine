@@ -22,4 +22,8 @@ Here is the how the engine works:
 
 -> After the VaR calculation, we calculate our unified margin requirement for the perp and prediction. Predictions have extreme tail-risk as the probability of the market approaches 0 or 1. This causes the delta of the prediction to be extremely volatile. To account for this, the engine calculates a gamma surcharge which increases the margin requirement when the spot price is near the edges of the outcome. The margin requirements is calculated using the Gaussian-Copula, because Copula models joint-tail dependency and can easily recognize when two positions are hedges.
 
--> Finally to calculate our optimized margin requirement: isolated margin (don't consider coorelation) - unified margin (consider coorelation).
+-> Isolated Margin (doesn't consider correlation) = VaR of Perp + VaR of Prediction + Gamma Surcharge
+
+-> Unified Margin (considers coorelation) = {(VaR of Perp)^2 + (VaR of Prediction)^2 + (2 * correlation * VaR of Perp * VaR of Prediction)}    + Gamma Surcharge
+
+-> Margin Unlocked = Isolated Margin - Unified Margin
