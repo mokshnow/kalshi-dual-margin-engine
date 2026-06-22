@@ -1,4 +1,5 @@
 streamlit
 numpy
-plotly.graph_objects
-scipy.stats
+scipy
+pandas
+plotly
