@@ -6,11 +6,11 @@ This transfer got me wondering why my predictions and perpetuals where seperated
 
 To test it out, I made this dashboard: https://kalshi-dual-margin-engine.streamlit.app/
 
-Kalshi Dual Margin Engine calculates margin requirements for perpetuals hedged with predictions or vice versa. If bets are inversely coorelated, it calculates how much margin can be unlocked for the user. The dashboard is using BTC Perp and 'Bitcoin price at the end of 2026' as the prediction.
+Kalshi Dual Margin Engine calculates margin requirements for perpetuals hedged with predictions or vice versa. If bets are inversely coorelated, it calculates how much margin can be unlocked for the user. The dashboard allows the user to select these perps: BTC, ETH, SOL, HYPE, ZEC, and these predictions: BTC/ETH/SOL at the end of 2026.
 
 Here is the how the engine works:
 
-  -> You choose the BTC spot price, IV, short/long the BTC perp, the total cost for the perp, the leverage for the perp, the outcome for the prediction, yes/no for the prediction, and total shares of the prediction. 
+  -> You choose the crypto's spot price, IV, short/long perp, the total cost for the perp, the leverage for the perp, the outcome for the prediction, yes/no for the prediction, and total shares of the prediction. 
   
   -> The outcome you choose for the prediction will have a large impact on this engine. The 'Bitcoin price at the end of 2026' prediction is essentially a cash-or-nothing option, so we can use the Black-Scholes formula for c/n option to calculate the theoritical price of this  outcome. The outcomes on this particular market are ranges (BTC between X and Y), so a bull call spread. To calculate the price of this outcome, we do price of X - price of Y.
   
