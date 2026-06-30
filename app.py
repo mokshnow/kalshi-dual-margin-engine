@@ -191,10 +191,10 @@ pred_spot = st.sidebar.slider(
 )
 
 bracket_labels = [b[0] for b in pred_cfg["brackets"]]
-selected_bracket_label = st.sidebar.selectbox("Target Price", bracket_labels)
+selected_bracket_label = st.sidebar.selectbox("Outcome", bracket_labels)
 k_lower, k_upper = next((b[1], b[2]) for b in pred_cfg["brackets"] if b[0] == selected_bracket_label)
 
-vol = st.sidebar.slider("Event IV", min_value=0.1, max_value=1.5, value=0.5, step=0.1)
+vol = st.sidebar.slider("Prediction IV", min_value=0.1, max_value=1.5, value=0.5, step=0.1)
 event_dir = st.sidebar.radio("Shares", ["Yes (Long)", "No (Short)"], horizontal=True)
 contracts = st.sidebar.number_input("Total Contracts", value=100000, step=1000)
 
@@ -215,11 +215,8 @@ calculated_rho = RiskMath.calculate_cross_asset_rho(
     perp_cfg["daily_vol_assumption"], pred_cfg["daily_vol_assumption"], base_corr
 )
 
-st.sidebar.markdown("---")
-st.sidebar.success(f"Correlation: {calculated_rho:.4f}")
-
+# Calculate exposures first
 raw_delta, gamma = RiskMath.calculate_range_greeks(pred_spot, k_lower, k_upper, T_years, vol)
-
 active_delta = raw_delta if event_dir == "Yes (Long)" else -raw_delta
 
 event_exposure = contracts * active_delta * pred_spot
@@ -227,6 +224,11 @@ perp_multiplier = 1 if perp_dir == "LONG" else -1
 perp_exposure = total_perp_size * perp_multiplier  
 
 is_offsetting = np.sign(event_exposure) != np.sign(perp_exposure)
+
+display_rho = -abs(calculated_rho) if is_offsetting else abs(calculated_rho)
+
+st.sidebar.markdown("---")
+st.sidebar.success(f"Correlation: {display_rho:.4f}")
 
 var_perp = RiskMath.calc_isolated_var(perp_exposure, perp_cfg["perp_haircut"], z_score)
 var_event = RiskMath.calc_isolated_var(event_exposure, 0.12, z_score) 
