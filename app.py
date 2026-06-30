@@ -85,7 +85,7 @@ class RiskMath:
         T = max(T, 0.0001)
         d2 = (np.log(S / K) + (r - 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
         delta = (np.exp(-r * T) * norm.pdf(d2)) / (sigma * S * np.sqrt(T))
-        gamma = -delta * ((d2 + sigma * np.sqrt(T)) / (sigma * S * np.sqrt(T)) + 1 / S)
+        gamma = -(delta / S) * (1 + (d2 / (sigma * np.sqrt(T))))
         return delta, gamma
 
     @staticmethod
